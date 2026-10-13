@@ -1,0 +1,7 @@
+<resources>
+    <style name="Theme.FamilySafety" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">#168477</item>
+        <item name="colorPrimaryVariant">#0D5A50</item>
+        <item name="colorSecondary">#2457C5</item>
+    </style>
+</resources>
