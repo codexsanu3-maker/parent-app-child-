@@ -3,7 +3,8 @@ name: Build Family Safety APKs
 on:
 workflow_dispatch:
 push:
-branches: [main]
+branches:
+- main
 
 permissions:
 contents: read
@@ -15,7 +16,7 @@ steps:
 - name: Checkout repository
 uses: actions/checkout@v4
 
-  - name: Set up Java 17
+  - name: Set up Java
     uses: actions/setup-java@v4
     with:
       distribution: temurin
@@ -24,10 +25,10 @@ uses: actions/checkout@v4
   - name: Set up Android SDK
     uses: android-actions/setup-android@v3
 
-  - name: Accept Android SDK licenses
-    run: yes | sdkmanager --licenses
+  - name: Accept SDK licenses
+    run: sdkmanager --licenses </dev/null || true
 
-  - name: Install Android SDK packages
+  - name: Install SDK packages
     run: sdkmanager 'platforms;android-36' 'build-tools;36.0.0'
 
   - name: Set up Gradle
@@ -38,7 +39,7 @@ uses: actions/checkout@v4
   - name: Run unit tests
     run: gradle --no-daemon :parent-app:testDebugUnitTest :child-app:testDebugUnitTest
 
-  - name: Build both debug APKs
+  - name: Build APKs
     run: gradle --no-daemon :parent-app:assembleDebug :child-app:assembleDebug
 
   - name: Upload APKs
